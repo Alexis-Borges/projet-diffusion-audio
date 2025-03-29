@@ -18,14 +18,14 @@ export default async function handler(req, res) {
         if (req.url.endsWith('/register')) {
             try {
                 // Check if the user already exists
-                const existingUser = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+                const existingUser = await pool.query('SELECT * FROM user WHERE email = $1', [email]);
                 if (existingUser.rows.length > 0) {
                     return res.status(409).json({ error: 'User already exists' });
                 }
 
                 // Hash the password and insert the new user into the database
                 const hashedPassword = bcrypt.hashSync(password, 10);
-                await pool.query('INSERT INTO users (email, password) VALUES ($1, $2)', [email, password]);
+                await pool.query('INSERT INTO user (email, password) VALUES ($1, $2)', [email, password]);
                 return res.status(201).json({ message: 'User registered successfully' });
             } catch (error) {
                 console.error('Error inserting into the database:', error);

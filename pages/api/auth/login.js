@@ -18,7 +18,7 @@ export default async function login(req, res) {
 
     try {
         // Remplacez ceci par votre logique d'authentification
-        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+        const result = await pool.query('SELECT * FROM user WHERE email = $1', [email]);
         const user = result.rows[0];
 
         if (!user || password.localeCompare(user.password) !== 0) {
