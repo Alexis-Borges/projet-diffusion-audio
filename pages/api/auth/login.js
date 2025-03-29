@@ -1,3 +1,10 @@
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { Pool } from 'pg'; // Import the pg library
+
+// Create a connection pool to PostgreSQL
+const pool = new Pool();
+
 export default async function login(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Method not allowed' });
@@ -11,15 +18,14 @@ export default async function login(req, res) {
 
     try {
         // Remplacez ceci par votre logique d'authentification
-        const user = await authenticateUser(email, password);
+        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+        const user = result.rows[0];
 
-        if (!user) {
-            return res.status(401).json({ message: 'Invalid credentials' });
+        if (!user || password.localeCompare(user.password) !== 0) {
+            return res.status(401).json({ error: 'Invalid email or password' });
         }
 
-        // Exemple de génération de token ou de session
-        const token = generateToken(user);
-
+        const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
         return res.status(200).json({ message: 'Login successful', token });
     } catch (error) {
         console.error(error);
@@ -27,11 +33,6 @@ export default async function login(req, res) {
     }
 }
 
-// Exemple de fonction d'authentification (à adapter selon votre projet)
-async function authenticateUser(email, password) {
-    // Ajoutez votre logique pour vérifier les informations d'identification
-    return { id: 1, email }; // Exemple d'utilisateur simulé
-}
 
 // Exemple de génération de token (à adapter selon votre projet)
 function generateToken(user) {
