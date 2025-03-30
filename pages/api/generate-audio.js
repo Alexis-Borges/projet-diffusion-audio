@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default async function handler(req, res) {
-  console.log("API KEY :", process.env.GOOGLE_API_KEY); // Vérifie que la clé est chargée
+  console.log("API KEY :", process.env.GOOGLE_API_KEY);
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Méthode non autorisée" });
   }
@@ -16,13 +16,13 @@ export default async function handler(req, res) {
     input: { text },
     voice: {
       languageCode: "fr-FR",
-      ssmlGender: "FEMALE",
-      name: "fr-FR-Wavenet-B", // Essaye différentes variantes comme A, B, D...
+      ssmlGender: "MALE",
+      name: "fr-FR-Wavenet-B",
     },
     audioConfig: {
       audioEncoding: "MP3",
-      speakingRate: 0.8, // Un débit légèrement plus lent
-      pitch: -2.0, // Une légère baisse du pitch
+      speakingRate: 0.9,
+      pitch: -2.0,
     },
   };
 

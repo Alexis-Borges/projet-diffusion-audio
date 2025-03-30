@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import MusicPlayer from "../components/MusicPlayer";
+import MonitoringDashboard from "@/components/MonitoringDashboard";
 
 export default function Home() {
   const [text, setText] = useState("");

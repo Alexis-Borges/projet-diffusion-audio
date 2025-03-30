@@ -182,7 +182,7 @@ export default function MusicPlayer({ musicRef, announcements }) {
 
   return (
     <div className="p-4 border rounded">
-      <h2 className="text-xl font-semibold mb-2">Musique Classique</h2>
+      <h2 className="text-xl font-semibold mb-2">Musique </h2>
       {playlist.length === 0 ? (
         <p>Chargement de la playlist...</p>
       ) : (
