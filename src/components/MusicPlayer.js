@@ -198,7 +198,7 @@ export default function MusicPlayer({ musicRef, announcements }) {
               onClick={() => setShuffleMode(!shuffleMode)}
               className="px-4 py-2 bg-purple-500 text-white rounded"
             >
-              Mode Shuffle : {shuffleMode ? "Activé" : "Désactivé"}
+              ⇌ : {shuffleMode ? "Activé" : "Désactivé"}
             </button>
           </div>
           {!isPlaying && (
@@ -239,14 +239,14 @@ export default function MusicPlayer({ musicRef, announcements }) {
                         className="px-1"
                         title="Déplacer vers le haut"
                       >
-                        🔼
+                        ⇖
                       </button>
                       <button
                         onClick={() => moveTrackDown(index)}
                         className="px-1"
                         title="Déplacer vers le bas"
                       >
-                        🔽
+                        ⇘
                       </button>
                     </div>
                   </li>
